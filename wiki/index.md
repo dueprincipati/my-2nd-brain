@@ -8,6 +8,8 @@ Catalog of the vault. Updated on every write operation.
 
 ## Sources
 
+- [[wiki/sources/archive-md-nhvxf]] - The jobs apocalypse: a (very) short history
+
 <!-- One entry per source. -->
 
 ## Views

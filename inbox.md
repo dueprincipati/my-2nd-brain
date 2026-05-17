@@ -12,4 +12,6 @@ the URLs into `raw/web/`. Check items after fetching.
 
 ## Done
 
+- [x] https://archive.md/nhVXF (fetched manually)
+
 <!-- Automatically moved here after fetch. -->
