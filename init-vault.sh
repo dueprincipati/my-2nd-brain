@@ -11,11 +11,11 @@
 #   1. Creates folder structure (raw/, wiki/pages/, wiki/views/, ...)
 #   2. Installs the two skills (inbox-fetcher, vault-linter, view-builder)
 #   3. Installs four slash commands (/save, /view, /reflect, /forget)
-#   4. Writes CLAUDE.md, inbox.md, wiki/{hot,index,log}.md
-#   5. Creates AGENTS.md as a symlink to CLAUDE.md
+#   4. Writes GEMINI.md, inbox.md, wiki/{hot,index,log}.md
+#   5. Creates AGENTS.md as a symlink to GEMINI.md
 #   6. Optionally: git init, checks Python dependencies
 #
-# Idempotent: safe to re-run. Asks before overwriting CLAUDE.md.
+# Idempotent: safe to re-run. Asks before overwriting GEMINI.md.
 
 set -euo pipefail
 
@@ -72,13 +72,13 @@ echo "${C_DIM}target: $VAULT_DIR${C_RESET}"
 echo
 
 # --- Safety check ----------------------------------------------------------
-OVERWRITE_CLAUDE=1
-if [ -f "$VAULT_DIR/CLAUDE.md" ]; then
-    warn "CLAUDE.md already exists"
+OVERWRITE_GEMINI=1
+if [ -f "$VAULT_DIR/GEMINI.md" ]; then
+    warn "GEMINI.md already exists"
     read -r -p "  Overwrite? [y/N] " ans
     case "$ans" in
-        [yY]*) OVERWRITE_CLAUDE=1 ;;
-        *)     OVERWRITE_CLAUDE=0; skip "keeping existing CLAUDE.md" ;;
+        [yY]*) OVERWRITE_GEMINI=1 ;;
+        *)     OVERWRITE_GEMINI=0; skip "keeping existing GEMINI.md" ;;
     esac
 fi
 
@@ -92,10 +92,10 @@ DIRS=(
     "wiki/views/assets"
     "conversations"
     ".lint"
-    ".claude/skills/inbox-fetcher/scripts"
-    ".claude/skills/vault-linter/scripts"
-    ".claude/skills/view-builder/templates"
-    ".claude/commands"
+    ".gemini/skills/inbox-fetcher/scripts"
+    ".gemini/skills/vault-linter/scripts"
+    ".gemini/skills/view-builder/templates"
+    ".gemini/commands"
 )
 for d in "${DIRS[@]}"; do
     mkdir -p "$VAULT_DIR/$d"
@@ -106,17 +106,17 @@ for d in raw/papers raw/web wiki/pages wiki/sources wiki/views wiki/views/assets
 done
 ok "directories"
 
-# --- CLAUDE.md -------------------------------------------------------------
-info "Installing CLAUDE.md"
-if [ "$OVERWRITE_CLAUDE" -eq 1 ]; then
-    cp "$SCRIPT_DIR/CLAUDE.md" "$VAULT_DIR/CLAUDE.md"
-    ok "CLAUDE.md"
+# --- GEMINI.md -------------------------------------------------------------
+info "Installing GEMINI.md"
+if [ "$OVERWRITE_GEMINI" -eq 1 ]; then
+    cp "$SCRIPT_DIR/GEMINI.md" "$VAULT_DIR/GEMINI.md"
+    ok "GEMINI.md"
 fi
 
 # AGENTS.md as symlink (some CLIs look for this name)
 if [ ! -e "$VAULT_DIR/AGENTS.md" ]; then
-    (cd "$VAULT_DIR" && ln -s CLAUDE.md AGENTS.md)
-    ok "AGENTS.md → CLAUDE.md (symlink)"
+    (cd "$VAULT_DIR" && ln -s GEMINI.md AGENTS.md)
+    ok "AGENTS.md → GEMINI.md (symlink)"
 fi
 
 # --- Base files ------------------------------------------------------------
@@ -223,7 +223,7 @@ if [ ! -f "$VAULT_DIR/.lint/report.md" ]; then
     cat > "$VAULT_DIR/.lint/report.md" <<'EOF'
 # Lint Report
 
-No lint run yet. Run `python .claude/skills/vault-linter/scripts/lint.py`
+No lint run yet. Run `python .gemini/skills/vault-linter/scripts/lint.py`
 from the vault root.
 EOF
     ok ".lint/report.md"
@@ -260,10 +260,10 @@ info "Installing skills"
 # inbox-fetcher
 if [ -d "$SCRIPT_DIR/skills/inbox-fetcher" ]; then
     cp "$SCRIPT_DIR/skills/inbox-fetcher/SKILL.md" \
-       "$VAULT_DIR/.claude/skills/inbox-fetcher/SKILL.md"
+       "$VAULT_DIR/.gemini/skills/inbox-fetcher/SKILL.md"
     cp "$SCRIPT_DIR/skills/inbox-fetcher/scripts/fetch_inbox.py" \
-       "$VAULT_DIR/.claude/skills/inbox-fetcher/scripts/fetch_inbox.py"
-    chmod +x "$VAULT_DIR/.claude/skills/inbox-fetcher/scripts/fetch_inbox.py"
+       "$VAULT_DIR/.gemini/skills/inbox-fetcher/scripts/fetch_inbox.py"
+    chmod +x "$VAULT_DIR/.gemini/skills/inbox-fetcher/scripts/fetch_inbox.py"
     ok "skill: inbox-fetcher"
 else
     warn "inbox-fetcher skill not found in bundle"
@@ -272,10 +272,10 @@ fi
 # vault-linter
 if [ -d "$SCRIPT_DIR/skills/vault-linter" ]; then
     cp "$SCRIPT_DIR/skills/vault-linter/SKILL.md" \
-       "$VAULT_DIR/.claude/skills/vault-linter/SKILL.md"
+       "$VAULT_DIR/.gemini/skills/vault-linter/SKILL.md"
     cp "$SCRIPT_DIR/skills/vault-linter/scripts/lint.py" \
-       "$VAULT_DIR/.claude/skills/vault-linter/scripts/lint.py"
-    chmod +x "$VAULT_DIR/.claude/skills/vault-linter/scripts/lint.py"
+       "$VAULT_DIR/.gemini/skills/vault-linter/scripts/lint.py"
+    chmod +x "$VAULT_DIR/.gemini/skills/vault-linter/scripts/lint.py"
     ok "skill: vault-linter"
 else
     warn "vault-linter skill not found in bundle"
@@ -284,10 +284,10 @@ fi
 # view-builder
 if [ -d "$SCRIPT_DIR/skills/view-builder" ]; then
     cp "$SCRIPT_DIR/skills/view-builder/SKILL.md" \
-       "$VAULT_DIR/.claude/skills/view-builder/SKILL.md"
+       "$VAULT_DIR/.gemini/skills/view-builder/SKILL.md"
     if [ -d "$SCRIPT_DIR/skills/view-builder/templates" ]; then
         cp "$SCRIPT_DIR/skills/view-builder/templates/"* \
-           "$VAULT_DIR/.claude/skills/view-builder/templates/" 2>/dev/null || true
+           "$VAULT_DIR/.gemini/skills/view-builder/templates/" 2>/dev/null || true
     fi
     ok "skill: view-builder"
 else
@@ -299,7 +299,7 @@ info "Installing slash commands"
 for cmd in save view reflect forget; do
     if [ -f "$SCRIPT_DIR/commands/$cmd.md" ]; then
         cp "$SCRIPT_DIR/commands/$cmd.md" \
-           "$VAULT_DIR/.claude/commands/$cmd.md"
+           "$VAULT_DIR/.gemini/commands/$cmd.md"
         ok "command: /$cmd"
     else
         warn "command $cmd not found in bundle"
@@ -351,7 +351,7 @@ echo
 echo "Next steps:"
 echo "  1. cd $VAULT_DIR"
 echo "  2. Add URLs to inbox.md (or drop PDFs in raw/papers/)"
-echo "  3. Open Claude Code (or another CLI) in this folder"
+echo "  3. Open Gemini CLI (or another CLI) in this folder"
 echo "  4. Ask: \"process the inbox\", then \"ingest the new content\""
 echo "  5. Use /view to build timelines/comparisons/slides"
 echo "  6. Use /save for important conversations"

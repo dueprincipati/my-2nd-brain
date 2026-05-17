@@ -31,7 +31,7 @@ You add 6 URLs to `inbox.md`:
 - [ ] https://langchain.com/blog/skill-libraries
 ```
 
-Open Claude Code. *"Process the inbox."*
+Open Gemini CLI. *"Process the inbox."*
 
 The agent runs `inbox-fetcher`, pulls the 6 pages into
 `raw/web/*/index.md`, moves them to `## Done` in `inbox.md`.

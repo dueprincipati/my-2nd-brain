@@ -1,3 +1,18 @@
-# Default vault path when init-vault.sh runs with no args.
-# The repo is the template, not a live vault.
-/second-brain-vault/
+# System
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Obsidian workspace (keep vault files, skip user-specific state)
+.obsidian/workspace*
+.obsidian/cache

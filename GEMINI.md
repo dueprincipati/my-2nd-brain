@@ -1,4 +1,4 @@
-# CLAUDE.md — Second Brain Vault
+# GEMINI.md — Second Brain Vault
 
 You maintain a personal knowledge vault for the user. The user curates
 sources and asks questions. You do the rest: reading, writing,
@@ -28,7 +28,7 @@ wiki/                 Your domain
   log.md              Append-only log of operations
 conversations/        Transcripts saved with /save
 .lint/report.md       Latest lint output
-.claude/              Skills, commands, hooks (mechanisms, not content)
+.gemini/              Skills, commands, hooks (mechanisms, not content)
 ```
 
 Three directories under `wiki/`. Everything you write goes to one of
@@ -135,7 +135,7 @@ User asks a question.
 User says "make a timeline of X", "compare Y and Z", "draft slides on W",
 or runs `/view` → build a view in `wiki/views/`. Ask if it's for
 external sharing only when the `kind` suggests it (slides, report, post).
-See `.claude/skills/view-builder/SKILL.md`.
+See `.gemini/skills/view-builder/SKILL.md`.
 
 ### REFLECT
 User says "reflect on my vault" or runs `/reflect` → write

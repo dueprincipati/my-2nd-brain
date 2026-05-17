@@ -161,7 +161,7 @@ exist:
 
 ## What to read next
 
-- **`CLAUDE.md`** — the full contract the agent follows. ~175 lines,
+- **`GEMINI.md`** — the full contract the agent follows. ~175 lines,
   worth reading once.
 - **`docs/examples/research-example.md`** — a canonical research
   use case with annotated walkthrough.
@@ -175,17 +175,17 @@ exist:
 **"Do I need to learn any syntax?"** No. Everything works in plain
 language. Slash commands are shortcuts, not requirements.
 
-**"How much should I customize CLAUDE.md?"** Probably nothing for the
+**"How much should I customize GEMINI.md?"** Probably nothing for the
 first month. Use the default contract, see what friction you hit,
 then adjust.
 
 **"What if the agent does something I don't want?"** Tell it. The
 agent is explicitly designed to ask before doing anything structural.
 If it did something unasked, that's a contract violation and worth
-noting in `CLAUDE.md` as a new rule.
+noting in `GEMINI.md` as a new rule.
 
-**"Can I use this with an agent other than Claude?"** Yes. The vault
-uses plain markdown. The contract is in `CLAUDE.md` / `AGENTS.md`
+**"Can I use this with an agent other than Gemini?"** Yes. The vault
+uses plain markdown. The contract is in `GEMINI.md` / `AGENTS.md`
 (symlinked for compatibility). Any CLI that reads one of those
 should work.
 

@@ -5,8 +5,8 @@ A self-maintaining personal knowledge vault pattern, based on
 
 You curate sources. The agent compiles a wiki, answers your
 questions, builds views when you ask, and periodically reflects on
-where your thinking is going. Works with Claude Code, Codex, or any
-agent that reads `CLAUDE.md` or `AGENTS.md`.
+where your thinking is going. Works with Gemini CLI, Codex, or any
+agent that reads `GEMINI.md` or `AGENTS.md`.
 
 **→ Read [GETTING-STARTED.md](GETTING-STARTED.md) first.**
 
@@ -17,7 +17,7 @@ agent that reads `CLAUDE.md` or `AGENTS.md`.
 ```
 vault-bundle/
 ├── init-vault.sh         bootstrap script (run first)
-├── CLAUDE.md             the contract between you and the agent (~175 lines)
+├── GEMINI.md             the contract between you and the agent (~175 lines)
 ├── GETTING-STARTED.md    10-minute walkthrough for newcomers
 ├── README.md             this file
 ├── skills/
@@ -51,7 +51,7 @@ cd my-2nd-brain
 
 Script is idempotent — safe to re-run.
 
-Then open Claude Code (or another CLI) in the vault and follow
+Then open Gemini CLI (or another CLI) in the vault and follow
 [GETTING-STARTED.md](GETTING-STARTED.md).
 
 ### Updating an existing vault
@@ -69,7 +69,7 @@ What happens on re-run:
 - **Always refreshed** — `skills/` and `commands/`. This is the
   whole point of the update: new operations, fixes, and slash
   commands land in the vault.
-- **Prompts you** — `CLAUDE.md`. Default is *keep* (answer `y` to
+- **Prompts you** — `GEMINI.md`. Default is *keep* (answer `y` to
   overwrite with the latest template). Say yes unless you've
   customized the contract locally.
 - **Created only if missing** — `inbox.md`, `wiki/index.md`,
@@ -125,8 +125,8 @@ Python standard library only. For charts (optional):
 pip install matplotlib
 ```
 
-**For the agent**: Claude Code, Codex, or any CLI that reads
-`CLAUDE.md` / `AGENTS.md` and supports slash commands.
+**For the agent**: Gemini CLI, Codex, or any CLI that reads
+`GEMINI.md` / `AGENTS.md` and supports slash commands.
 
 ---
 
@@ -152,13 +152,13 @@ conversations. Use `/save` more. Also needs a few weeks of activity
 before the signals land.
 
 **AGENTS.md not recognized** → replace the symlink with a copy:
-`rm AGENTS.md && cp CLAUDE.md AGENTS.md`.
+`rm AGENTS.md && cp GEMINI.md AGENTS.md`.
 
 ---
 
 ## Evolving the contract
 
-`CLAUDE.md` is designed to co-evolve. When you hit friction, ask the
+`GEMINI.md` is designed to co-evolve. When you hit friction, ask the
 agent to propose a change. Good changes get committed; bad ones get
 reverted. Your vault, your rules.
 
